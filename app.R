@@ -1,3 +1,6 @@
+# Created December 2025 with Positron Assistant
+# Models: Claude Sonnet 4.5, Claude Opus 4.5, Claude Haiku 4.5
+
 library(shiny)
 library(tidyverse)
 library(DT)
@@ -7,7 +10,15 @@ df <- readr::read_csv("in_grammar_all.csv")
 
 # UI ---------------------------------------------------------------
 ui <- fluidPage(
-  titlePanel("ggplot2 extension component explorer"),
+  tags$head(
+    tags$style(HTML("
+      code {
+        color: inherit;      /* Remove Bootstrap red */
+        background-color: transparent;
+      }
+    "))
+  ),
+  titlePanel("ggplot2 ecosystem component explorer"),
 
   sidebarLayout(
     sidebarPanel(
@@ -32,6 +43,13 @@ ui <- fluidPage(
     mainPanel(
       textOutput("package_header"),
       DTOutput("tbl"),
+      HTML(
+        'Data: Exported functions that begin with <code>geom_</code>,
+        <code>stat_</code>, <code>coord_</code>, <code>scale_</code>,
+        <code>facet_</code> or <code>theme_</code> from <code>ggplot2</code> or
+        any package on CRAN that imports
+        or depends on <code>ggplot2</code>.'
+      ),
       helpText(
         a("View source on GitHub",
           href = "https://github.com/jtr13/extensions-shiny",

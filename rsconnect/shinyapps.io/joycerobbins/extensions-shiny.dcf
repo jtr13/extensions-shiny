@@ -1,0 +1,13 @@
+name: extensions-shiny
+title: extensions-shiny
+username: joycerobbins
+account: joycerobbins
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16283652
+bundleId: 11304204
+url: https://joycerobbins.shinyapps.io/extensions-shiny/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Assistant.log|in_out_grammar.csv|R/classify_imports_depends.R|R/classify_in_grammar.R
