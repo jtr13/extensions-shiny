@@ -4,6 +4,7 @@
 # See comments at the top of classify_imports_depends.R
 # Adding ggplot2 even though it doesn't import or depend on ggplot2 :-)
 
+
 # ----------------------------------------------------------------------
 # LIBRARIES AND DEPENDENCY SETUP
 # ----------------------------------------------------------------------
@@ -17,6 +18,7 @@ in_grammar <- read_csv("in_out_grammar.csv") |>
 
 # Define the packages to process (tail of the filtered list)
 packages_to_check <- in_grammar$package
+
 CRAN_BASE_URL <- "https://cran.r-project.org/src/contrib/"
 
 # Safely fetch the CRAN package database once
@@ -156,3 +158,33 @@ for (pkg in packages_to_check) {
 }
 
 #write_csv(final_results_dt, "data/in_grammar_all.csv")
+
+# Problems with dep_type field, attempt to fix:
+#
+
+library(tidyverse)
+df <- read_csv("in_grammar_all.csv") |>
+  select(-dep_type)
+crandate <- format(file.mtime("in_grammar_all.csv"), "%Y-%m-%d")
+
+u <- url(paste0("https://packagemanager.posit.co/cran/",
+                crandate, "/src/contrib/PACKAGES"))
+
+ap <- read.dcf(u)
+close(u)
+
+cran_archive <- as.data.frame(ap, stringsAsFactors = FALSE)
+
+imports_depends <- cran_archive |>
+  mutate(
+    depends = grepl("\\bggplot2\\b", Depends),
+    imports = grepl("\\bggplot2\\b", Imports)
+  ) |>
+  filter(depends | imports) |>
+  pivot_longer(depends:imports, names_to = "dep_type", values_to = "tf") |>
+  filter(tf) |>
+  dplyr::select(package = Package, dep_type)
+
+df2 <- left_join(df, imports_depends)
+write_csv(df2, "in_grammar_all.csv")
+
