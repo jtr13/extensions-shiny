@@ -6,8 +6,7 @@ library(tidyverse)
 library(DT)
 
 # Example data ----
-df <- readr::read_csv("in_out_grammar_v2025_12_07_b.csv")
-
+df <- readr::read_csv("in_grammar_all_v2025_12_09.csv")
 # UI ---------------------------------------------------------------
 ui <- fluidPage(
   tags$head(
@@ -46,7 +45,7 @@ ui <- fluidPage(
       HTML(
         'Data: Exported functions that begin with <code>geom_</code>,
         <code>stat_</code>, <code>coord_</code>, <code>scale_</code>,
-        <code>facet_</code> or <code>theme_</code> from <code>ggplot2</code> or
+        <code>facet_</code>, <code>position_</code>, <code>guide_</code> or <code>theme_</code> from <code>ggplot2</code> or
         any package on CRAN that imports
         or depends on <code>ggplot2</code>.'
       ),
