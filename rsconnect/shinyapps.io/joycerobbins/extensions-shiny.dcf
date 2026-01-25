@@ -5,7 +5,7 @@ account: joycerobbins
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 16283652
-bundleId: 11490056
+bundleId: 11492885
 url: https://joycerobbins.shinyapps.io/extensions-shiny/
 version: 1
 asMultiple: FALSE
