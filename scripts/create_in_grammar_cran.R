@@ -1,7 +1,9 @@
-# moved from exttools
+# create in_grammar_cran.csv
+# replaces exttools/scripts/classify_in_grammar_OLD.R
+# and exttools/scripts/classify_imports_depends.R
 
 library(tidyverse)
-library(exttools)
+library(exttools) # install first!
 
 cran_db <- tools::CRAN_package_db()
 
@@ -23,5 +25,7 @@ in_grammar_cran <- map(packages_to_check, get_components_cran, cran_db) |>
   list_rbind()
 
 in_grammar_cran <- left_join(in_grammar_cran, imports_depends_suggests)
+
+
 
 write_csv(in_grammar_cran, paste0("~/extensions-shiny/data/in_grammar_cran_v", format(Sys.Date(), "%Y_%m_%d"), ".csv"))
