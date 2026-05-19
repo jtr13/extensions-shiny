@@ -28,4 +28,4 @@ in_grammar_cran <- left_join(in_grammar_cran, imports_depends_suggests)
 
 
 
-write_csv(in_grammar_cran, "~/extensions-shiny/data/in_grammar_cran_v2026_01_25.csv")
+write_csv(in_grammar_cran, paste0("~/extensions-shiny/data/in_grammar_cran_v", format(Sys.Date(), "%Y_%m_%d"), ".csv"))

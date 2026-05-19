@@ -6,7 +6,7 @@ library(tidyverse)
 library(DT)
 
 # Example data ----
-df <- readr::read_csv("data/in_grammar_cran_v2026_01_25.csv")
+df <- readr::read_csv(tail(list.files("data", pattern = "^in_grammar_cran.*\\.csv$", full.names = TRUE), 1))
 # UI ---------------------------------------------------------------
 ui <- fluidPage(
   tags$head(
