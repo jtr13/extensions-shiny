@@ -6,7 +6,9 @@ library(tidyverse)
 library(DT)
 
 # Example data ----
-df <- readr::read_csv(tail(list.files("data", pattern = "^in_grammar_cran.*\\.csv$", full.names = TRUE), 1))
+data_file <- tail(list.files("data", pattern = "^in_grammar_cran.*\\.csv$", full.names = TRUE), 1)
+df <- readr::read_csv(data_file)
+data_date <- gsub(".*_v(\\d{4})_(\\d{2})_(\\d{2})\\.csv", "\\1-\\2-\\3", basename(data_file))
 # UI ---------------------------------------------------------------
 ui <- fluidPage(
   tags$head(
@@ -43,11 +45,11 @@ ui <- fluidPage(
       textOutput("package_header"),
       DTOutput("tbl"),
       HTML(
-        'Data: Exported functions that begin with <code>geom_</code>,
+        paste0('Data: Exported functions that begin with <code>geom_</code>,
         <code>stat_</code>, <code>coord_</code>, <code>scale_</code>,
         <code>facet_</code>, <code>position_</code>, <code>guide_</code> or <code>theme_</code> from <code>ggplot2</code> or
         any package on CRAN that imports, depends on, or suggests
-        <code>ggplot2</code>. Last update: 2026-01-24'
+        <code>ggplot2</code>. Last update: ', data_date)
       ),
       helpText(
         a("View source on GitHub",
